@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stage 2 (3ESR121) : Immersion dans les milieux de pratique | BES UQAC</title>
+<style>
+  :root{
+    --vert:#5a8f29; --vert-fonce:#3d6519; --vert-pale:#eef5e6;
+    --orange:#e07b00; --orange-pale:#fff3e3;
+    --encre:#1f2a1a; --gris:#5b6356; --ligne:#dfe4da; --fond:#fafbf8; --blanc:#fff;
+    --rayon:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--encre);background:var(--fond);line-height:1.6;font-size:17px}
+  a{color:var(--orange);font-weight:600}
+  a:hover{color:var(--vert-fonce)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+
+  /* En-tête */
+  header.hero{background:linear-gradient(135deg,var(--vert-fonce),var(--vert));color:#fff;padding:56px 0 64px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.07)}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:4px 12px;border-radius:99px;font-size:.85rem;letter-spacing:.03em}
+  .badge.essai{background:var(--orange);border-color:var(--orange);margin-left:6px}
+  header h1{font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.15;margin:16px 0 10px}
+  header p.sous{font-size:1.15rem;opacity:.95;max-width:760px;margin:0}
+  header .inst{margin-top:22px;font-size:.92rem;opacity:.85}
+
+  /* Navigation */
+  nav.menu{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--ligne)}
+  nav.menu ul{list-style:none;margin:0 auto;padding:0 22px;max-width:1100px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  nav.menu a{display:block;padding:14px 12px;color:var(--gris);text-decoration:none;font-size:.92rem;white-space:nowrap;border-bottom:3px solid transparent;font-weight:600}
+  nav.menu a:hover,nav.menu a.actif{color:var(--vert-fonce);border-bottom-color:var(--vert)}
+
+  section{padding:56px 0 8px}
+  h2{font-size:1.75rem;color:var(--vert-fonce);margin:0 0 6px}
+  h2 + .chapo{color:var(--gris);margin:0 0 26px;max-width:800px}
+  h3{color:var(--vert-fonce);margin:0 0 8px;font-size:1.15rem}
+
+  /* Chiffres clés */
+  .chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:32px}
+  .chiffre{background:var(--blanc);border-radius:var(--rayon);padding:18px 18px 16px;box-shadow:0 6px 22px rgba(30,50,20,.10);border-top:4px solid var(--vert)}
+  .chiffre b{display:block;font-size:1.7rem;color:var(--vert-fonce);line-height:1.1}
+  .chiffre span{font-size:.92rem;color:var(--gris)}
+
+  .grille{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .carte{background:var(--blanc);border:1px solid var(--ligne);border-radius:var(--rayon);padding:22px}
+  .carte.accent{border-left:5px solid var(--orange)}
+  ul.liste{margin:0;padding-left:20px}
+  ul.liste li{margin:5px 0}
+  ul.coches{list-style:none;padding:0;margin:0}
+  ul.coches li{padding-left:30px;position:relative;margin:9px 0}
+  ul.coches li::before{content:"✓";position:absolute;left:0;top:0;width:21px;height:21px;border-radius:50%;background:var(--vert-pale);color:var(--vert-fonce);font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+
+  .note{background:var(--orange-pale);border:1px solid #f5d3a6;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:.97rem}
+  .note strong{color:#9a5300}
+
+  /* Calendrier */
+  .semaines{display:grid;gap:18px}
+  .semaine{display:grid;grid-template-columns:110px 1fr;background:var(--blanc);border:1px solid var(--ligne);border-radius:var(--rayon);overflow:hidden}
+  .semaine .num{background:var(--vert);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;text-align:center}
+  .semaine .num b{font-size:2.2rem;line-height:1}
+  .semaine .num span{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+  .semaine .contenu{padding:20px 22px}
+  .semaine .contenu h3{margin-bottom:4px}
+  .semaine .duree{font-size:.9rem;color:var(--gris);margin-bottom:12px}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .cols h4{margin:0 0 6px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--orange)}
+  .cols ul{margin:0;padding-left:18px;font-size:.96rem}
+  .cols li{margin:4px 0}
+  .tag{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--vert-pale);color:var(--vert-fonce);margin:2px 4px 2px 0}
+  .tag.o{background:var(--orange-pale);color:#9a5300}
+
+  /* Onglets rôles */
+  .onglets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .onglets button{font:inherit;font-weight:700;border:2px solid var(--vert);background:var(--blanc);color:var(--vert-fonce);padding:10px 18px;border-radius:99px;cursor:pointer}
+  .onglets button[aria-selected="true"]{background:var(--vert);color:#fff}
+  .panneau{display:none}
+  .panneau.visible{display:block}
+  .panneau .intro{color:var(--gris);margin:0 0 14px}
+
+  /* Triade */
+  .triade{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin:10px 0 26px}
+  .role{background:var(--blanc);border:2px solid var(--vert);border-radius:var(--rayon);padding:14px 16px;text-align:center;width:220px}
+  .role b{display:block;font-size:1.3rem;color:var(--vert-fonce)}
+  .role span{font-size:.88rem;color:var(--gris)}
+  .lien{width:40px;height:2px;background:var(--vert)}
+
+  /* Phases */
+  .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-radius:var(--rayon);overflow:hidden;border:1px solid var(--ligne)}
+  .phase{background:var(--blanc);padding:22px;border-right:1px solid var(--ligne)}
+  .phase:last-child{border-right:none}
+  .phase .etape{font-size:.8rem;font-weight:700;color:#fff;background:var(--orange);display:inline-block;padding:2px 10px;border-radius:99px;margin-bottom:8px}
+  .phase p.fin{font-size:.92rem;color:var(--gris);border-top:1px dashed var(--ligne);padding-top:10px;margin-bottom:0}
+
+  /* Compétences */
+  .comp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+  .c{display:flex;gap:12px;align-items:flex-start;background:var(--blanc);border:1px solid var(--ligne);border-radius:12px;padding:12px 14px}
+  .c b{flex:0 0 auto;background:var(--vert);color:#fff;border-radius:8px;padding:3px 8px;font-size:.9rem}
+  .c.risque{border-color:#f0c58d;background:var(--orange-pale)}
+  .c.risque b{background:var(--orange)}
+  .c span{font-size:.95rem}
+  .c.focus{border-color:var(--vert)}
+
+  /* Tableau travaux */
+  table{width:100%;border-collapse:collapse;background:var(--blanc);border-radius:var(--rayon);overflow:hidden;border:1px solid var(--ligne)}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--ligne);vertical-align:top;font-size:.96rem}
+  th{background:var(--vert-pale);color:var(--vert-fonce);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
+  tr:last-child td{border-bottom:none}
+  .niveaux{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}
+  .niveaux span{padding:4px 12px;border-radius:99px;font-weight:700;font-size:.88rem}
+  .n1{background:#dff0d0;color:#2f5410}.n2{background:#eef5e6;color:#3d6519}.n3{background:#ffe9cf;color:#9a5300}
+
+  /* Accordéon */
+  details{background:var(--blanc);border:1px solid var(--ligne);border-radius:12px;margin:10px 0}
+  summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--vert-fonce);list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+";display:inline-block;width:22px;color:var(--orange);font-weight:800}
+  details[open] summary::before{content:"−"}
+  details .corps{padding:0 18px 16px 40px}
+
+  .docs a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:10px 12px;border-radius:10px;color:var(--encre);font-weight:600}
+  .docs a:hover{background:var(--vert-pale)}
+  .docs a::before{content:"↗";color:var(--orange);font-weight:800}
+
+  dl.acro{display:grid;grid-template-columns:90px 1fr;gap:6px 14px;margin:0}
+  dl.acro dt{font-weight:800;color:var(--vert-fonce)}
+  dl.acro dd{margin:0}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff!important;text-decoration:none;padding:12px 20px;border-radius:99px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+  .btn:hover{background:#c46b00}
+  .btn.clair{background:#fff;color:var(--vert-fonce)!important}
+  .btn.clair:hover{background:var(--vert-pale)}
+  .grille-eval{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--vert-pale);border:2px solid var(--vert);border-radius:var(--rayon);padding:22px 24px;margin-top:22px}
+  .grille-eval .ico{font-size:2.4rem;line-height:1}
+  .grille-eval .txt{flex:1 1 320px}
+  .grille-eval h3{margin:0 0 4px}
+  .grille-eval p{margin:0;font-size:.96rem}
+  footer{margin-top:60px;background:var(--encre);color:#d9dfd3;padding:32px 0;font-size:.92rem}
+  footer a{color:#ffc27a}
+
+  @media (max-width:640px){
+    .semaine{grid-template-columns:1fr}
+    .semaine .num{flex-direction:row;gap:10px;padding:10px}
+    .semaine .num b{font-size:1.5rem}
+    .lien{width:2px;height:20px}
+    .triade{flex-direction:column}
+  }
+  @media print{
+    nav.menu,.onglets{display:none}
+    .panneau{display:block!important;margin-bottom:18px}
+    details{break-inside:avoid}
+    details .corps{display:block}
+    header.hero{background:var(--vert-fonce)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    section{padding-top:24px}
+    .semaine,.carte{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Baccalauréat en enseignement secondaire · UQAC</span><span class="badge essai">Mise à l'essai, automne 2026</span>
+    <h1>Stage 2 : Immersion dans les milieux de pratique</h1>
+    <p class="sous">Stage d'initiation à l'enseignement au secondaire (3ESR121). Tout ce qu'il faut savoir sur le déroulement, les rôles de chacun, les travaux et l'évaluation.</p>
+    <p style="margin:22px 0 0"><a class="btn clair" href="#grille">📋 Grille d'évaluation certificative</a></p>
+    <p class="inst">Unité d'enseignement secondaire et professionnel · Département des sciences de l'éducation</p>
+  </div>
+</header>
+
+<nav class="menu" aria-label="Sections">
+  <ul>
+    <li><a href="#apercu">Aperçu</a></li>
+    <li><a href="#calendrier">Calendrier</a></li>
+    <li><a href="#roles">Rôles</a></li>
+    <li><a href="#encadrement">Encadrement</a></li>
+    <li><a href="#travaux">Travaux</a></li>
+    <li><a href="#planification">Planifier une SEA</a></li>
+    <li><a href="#competences">Compétences et évaluation</a></li>
+    <li><a href="#grille">Grille d'évaluation</a></li>
+    <li><a href="#regles">Règles essentielles</a></li>
+    <li><a href="#ressources">Ressources</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <div class="chiffres" aria-label="Chiffres clés">
+    <div class="chiffre"><b>4&nbsp;semaines</b><span>de stage en milieu scolaire</span></div>
+    <div class="chiffre"><b>50 à 66 %</b><span>d'une tâche normale d'enseignement, de façon progressive</span></div>
+    <div class="chiffre"><b>2 SEA</b><span>originales à planifier et à piloter</span></div>
+    <div class="chiffre"><b>9</b><span>compétences professionnelles évaluées</span></div>
+    <div class="chiffre"><b>2 à 3</b><span>rencontres en triade PSt, PEA, PSU</span></div>
+  </div>
+
+  <!-- APERÇU -->
+  <section id="apercu">
+    <h2>Aperçu du stage</h2>
+    <p class="chapo">Le deuxième stage est une étape déterminante : la personne stagiaire assume progressivement des responsabilités pédagogiques, conçoit et anime des séquences d'apprentissage et consolide son identité professionnelle.</p>
+
+    <div class="grille g2">
+      <div class="carte accent">
+        <h3>Objectif principal</h3>
+        <p style="margin:0 0 14px;font-size:1.1rem">S'initier aux principales tâches de la profession enseignante au secondaire.</p>
+        <h3>Ce que la PSt doit accomplir</h3>
+        <ul class="coches">
+          <li>Communiquer de manière appropriée selon les contextes</li>
+          <li>Planifier deux SEA originales (dont la PSt est la principale autrice) : l'une d'une demi-période à une période, l'autre de deux à trois périodes</li>
+          <li>Piloter des SEA selon une responsabilité d'enseignement progressive (50 à 66 % d'une tâche normale)</li>
+          <li>Contribuer à un fonctionnement de classe bienveillant et propice à l'apprentissage</li>
+        </ul>
+      </div>
+      <div class="carte">
+        <h3>&nbsp;</h3>
+        <ul class="coches">
+          <li>Soutenir le plaisir d'apprendre en diversifiant les activités proposées</li>
+          <li>Poursuivre le développement de son identité professionnelle en lien avec les documents ministériels</li>
+          <li>Mobiliser les habiletés technologiques en fonction des besoins de la classe</li>
+          <li>Faire preuve d'éthique professionnelle</li>
+        </ul>
+        <div class="note" style="margin-bottom:0"><strong>Une approche réflexive et collaborative.</strong> La PSt analyse ses réussites et ses défis; les échanges avec la PEA et la PSU soutiennent son autonomie et sa progression.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDRIER -->
+  <section id="calendrier">
+    <h2>Calendrier semaine par semaine</h2>
+    <p class="chapo">La PEA assure une supervision constante en 2<sup>e</sup> semaine, puis diminue graduellement sa présence pour permettre à la PSt d'expérimenter de façon de plus en plus autonome.</p>
+
+    <div class="semaines">
+      <article class="semaine">
+        <div class="num"><span>Semaine</span><b>1</b></div>
+        <div class="contenu">
+          <h3>Observation participative et intégration</h3>
+          <div class="duree"><span class="tag o">Obligatoire : minimum 3 jours, maximum 5 jours</span></div>
+          <div class="cols">
+            <div>
+              <h4>Tâches de la PSt</h4>
+              <ul>
+                <li>S'impliquer activement dans la vie de la classe (accueil des élèves, quelques activités)</li>
+                <li>Brosser le portrait de <strong>deux groupes-classes</strong> et le déposer au portfolio</li>
+                <li>Cibler les principales routines de la PEA</li>
+                <li>Planifier globalement ses responsabilités d'enseignement pour tout le stage avec la PEA et en établir le calendrier</li>
+                <li><strong>Déposer la planification à moyen terme</strong> au portfolio à la fin de la semaine</li>
+                <li>Rencontrer la direction adjointe et prendre connaissance du projet éducatif</li>
+                <li>Rencontrer le personnel administratif</li>
+                <li>Faire signer aux parents le <strong>formulaire de consentement</strong> pour la SEA filmée</li>
+                <li>Alimenter le tableau de collecte de données</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Visées</h4>
+              <ul>
+                <li>Intégration progressive au contexte scolaire</li>
+                <li>Relation de confiance avec les élèves et la PEA</li>
+                <li>Compréhension des besoins des élèves selon les contextes (ex. : PEI et classe ordinaire)</li>
+                <li>Appropriation des routines et de la gestion de classe</li>
+                <li>Organisation réaliste et concertée des responsabilités d'enseignement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="semaine">
+        <div class="num"><span>Semaine</span><b>2</b></div>
+        <div class="contenu">
+          <h3>Prise en charge progressive et séminaire</h3>
+          <div class="duree"><span class="tag">Dès le 6<sup>e</sup> jour de stage</span></div>
+          <div class="cols">
+            <div>
+              <h4>Tâches de la PSt</h4>
+              <ul>
+                <li>Assumer des activités pédagogiques et didactiques de plus en plus nombreuses</li>
+                <li>Participer au <strong>séminaire</strong> (Zoom, enregistré) avec la PSU</li>
+                <li>Après le séminaire, remplir la ligne <em>Réflexions issues du séminaire (C6 et C8)</em> du tableau de collecte</li>
+                <li>Continuer de colliger des données sur le développement de ses compétences</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Rôle de la PEA et de la PSU</h4>
+              <ul>
+                <li>PEA : supervision constante de la PSt</li>
+                <li>PSU : anime le séminaire, puis transmet le lien Panopto de l'enregistrement</li>
+                <li>Visées : échanges entre PSt, réflexion collective sur les interventions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="semaine">
+        <div class="num"><span>Semaine</span><b>3</b></div>
+        <div class="contenu">
+          <h3>SEA filmée et analyse de la vidéo</h3>
+          <div class="duree"><span class="tag o">Dépôt au moins 24 h avant la triade</span></div>
+          <div class="cols">
+            <div>
+              <h4>Tâches de la PSt</h4>
+              <ul>
+                <li>Planifier la SEA filmée (une demi-période à une période) sous la supervision de la PEA</li>
+                <li>Filmer, idéalement sur trépied, <strong>les élèves de dos ou la PSt seulement</strong></li>
+                <li>Déposer au portfolio la planification et le lien Panopto de la vidéo</li>
+                <li>Analyser la vidéo avec le document <em>Analyse de la vidéo</em></li>
+                <li>Remplir la ligne <em>Constats issus de l'analyse de la vidéo</em> du tableau de collecte</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Rencontre en triade (Zoom, enregistrée)</h4>
+              <ul>
+                <li>La PSt présente son analyse à la PEA et à la PSU</li>
+                <li>Discussion constructive suscitant la réflexion</li>
+                <li>La PSU transmet ensuite le lien Panopto de la rencontre</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="semaine">
+        <div class="num"><span>Semaine</span><b>4</b></div>
+        <div class="contenu">
+          <h3>Supervision en classe et évaluation certificative</h3>
+          <div class="duree"><span class="tag o">Dépôt au moins 24 h avant la supervision</span></div>
+          <div class="cols">
+            <div>
+              <h4>Tâches de la PSt</h4>
+              <ul>
+                <li>Planifier, avec la PEA, une SEA de deux à trois périodes (incluant la période qui sera observée)</li>
+                <li>Déposer au portfolio la planification de la responsabilité d'enseignement observée</li>
+                <li>Rédiger son <strong>bilan de stage 2</strong> en vue de la triade</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Supervision et triade</h4>
+              <ul>
+                <li>Supervision en classe par la PSU (une demi-période ou plus)</li>
+                <li>Rencontre en triade sur la responsabilité observée</li>
+                <li>La PSt présente oralement son bilan; évaluation certificative du stage</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- RÔLES -->
+  <section id="roles">
+    <h2>Rôles et responsabilités</h2>
+    <p class="chapo">Le stage repose sur une triade aux rôles complémentaires, qui garantit la cohérence de la formation.</p>
+
+    <div class="triade" aria-hidden="true">
+      <div class="role"><b>PSt</b><span>Personne stagiaire : développe activement ses compétences</span></div>
+      <div class="lien"></div>
+      <div class="role"><b>PEA</b><span>Personne enseignante associée : facilite l'intégration au milieu</span></div>
+      <div class="lien"></div>
+      <div class="role"><b>PSU</b><span>Personne superviseure universitaire : assure le suivi pédagogique</span></div>
+    </div>
+
+    <div class="onglets" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="p-pst" id="t-pst">Personne stagiaire (PSt)</button>
+      <button role="tab" aria-selected="false" aria-controls="p-pea" id="t-pea">Enseignant·e associé·e (PEA)</button>
+      <button role="tab" aria-selected="false" aria-controls="p-psu" id="t-psu">Superviseur·e (PSU)</button>
+    </div>
+
+    <div class="panneau visible" id="p-pst" role="tabpanel" aria-labelledby="t-pst">
+      <div class="grille g2">
+        <div class="carte"><h3>Avant le stage</h3><ul class="liste">
+          <li>Respecter pleinement les engagements de l'école et de la PEA dès l'attribution du stage</li>
+          <li>Prendre l'initiative de contacter la PEA pour fixer une première rencontre</li>
+        </ul></div>
+        <div class="carte"><h3>Documents et portfolio</h3><ul class="liste">
+          <li>Fournir tous les documents requis, dont la vérification des antécédents judiciaires, dans les délais</li>
+          <li>Déposer tous les documents et travaux au portfolio</li>
+          <li>Partager correctement le portfolio avec la PEA et la PSU</li>
+          <li>Publier le portfolio pour rendre visibles les modifications</li>
+        </ul></div>
+        <div class="carte"><h3>Conduite durant le stage</h3><ul class="liste">
+          <li>Respecter l'horaire convenu, le calendrier scolaire et l'horaire de la PEA</li>
+          <li>Notifier toute absence à la PEA, à la PSU et au bureau de la formation pratique</li>
+          <li>Rattraper les journées manquées selon les modalités convenues</li>
+          <li>Réaliser les travaux demandés (sinon, risque d'échec aux C2, C11 et C13)</li>
+        </ul></div>
+        <div class="carte"><h3>Éthique et collaboration</h3><ul class="liste">
+          <li>Confidentialité des informations sur les élèves, langage respectueux, respect du code de vie et du code vestimentaire</li>
+          <li>Confidentialité des vidéos : partage uniquement au sein de la triade</li>
+          <li>Collaborer avec tout le personnel; démontrer de l'autonomie</li>
+          <li>En cas de difficulté personnelle, pédagogique ou éthique : aviser rapidement la PSU, la PEA et le bureau de la formation pratique</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="panneau" id="p-pea" role="tabpanel" aria-labelledby="t-pea">
+      <div class="grille g3">
+        <div class="carte"><h3>Accueil et intégration</h3><ul class="liste">
+          <li>Préparer l'arrivée de la PSt : lieu de travail, horaire, règlements</li>
+          <li>Faire visiter l'école, présenter la direction, expliquer le fonctionnement de la classe</li>
+          <li>Encourager l'observation d'autres enseignant·es dans d'autres contextes</li>
+          <li>Créer un climat propice à l'apprentissage et à la réflexion</li>
+          <li>Communiquer chaque semaine sa planification à la PSt</li>
+          <li>Informer la PSt lors d'évènements majeurs (tempête, panne, grève)</li>
+        </ul></div>
+        <div class="carte"><h3>Pédagogie et supervision</h3><ul class="liste">
+          <li>Lire attentivement le guide de stage</li>
+          <li>Permettre l'observation en contextes variés et un engagement graduel</li>
+          <li>Offrir des rétroactions régulières et constructives</li>
+          <li>Collaborer étroitement avec la PSU et participer à l'évaluation certificative sur la base de faits observables</li>
+          <li>Prévoir des échanges réguliers lors des journées de télétravail (planifications, corrections, outils, questions)</li>
+          <li>Respecter la responsabilité d'enseignement de la PSt jusqu'à la fin du stage</li>
+          <li>Conserver l'entière responsabilité professionnelle et légale de ses élèves</li>
+          <li>Confidentialité des vidéos au sein de la triade</li>
+          <li>En cas de difficulté, informer la PSU pour mettre en place un <a href="https://www.uqac.ca/stages-docs/formulaires/formulaire-plan-intervention.pdf" target="_blank" rel="noopener">plan d'intervention</a></li>
+        </ul></div>
+        <div class="carte"><h3>Développement professionnel</h3><ul class="liste">
+          <li>Développer chez la PSt des habiletés pédagogiques et didactiques</li>
+          <li>Développer des attitudes essentielles : rigueur, esprit critique, engagement</li>
+          <li>Garantir un développement professionnel harmonieux et complet</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="panneau" id="p-psu" role="tabpanel" aria-labelledby="t-psu">
+      <div class="grille g3">
+        <div class="carte"><h3>Encadrement et soutien</h3><ul class="liste">
+          <li>Agir en responsable pédagogique de la formation de la PSt</li>
+          <li>Lire les documents de stage en tenant compte des réalités du milieu</li>
+          <li>Guider par l'observation, la rétroaction et l'évaluation continue</li>
+          <li>Effectuer des supervisions formatives suivies de rencontres en triade</li>
+          <li>En cas de difficulté, mettre en place un plan d'intervention et consulter le dossier au secrétariat</li>
+        </ul></div>
+        <div class="carte"><h3>Réflexion et analyse</h3><ul class="liste">
+          <li>Favoriser les ponts entre les cours universitaires et l'expérience en classe</li>
+          <li>Soutenir l'autonomie et accompagner la rédaction des travaux</li>
+        </ul></div>
+        <div class="carte"><h3>Relations et évaluation</h3><ul class="liste">
+          <li>Toujours se présenter à la réception de l'école avant de rencontrer la PSt et la PEA</li>
+          <li>Clarifier les rôles dès le début et favoriser une relation de confiance</li>
+          <li>Assumer l'évaluation certificative : jumeler ses observations à celles de la PEA et rédiger la version définitive</li>
+          <li>Justifier les décisions de réussite ou d'échec</li>
+          <li>Verser le résultat dans l'intranet et transmettre la grille signée au secrétariat dans les délais</li>
+          <li>Confidentialité des vidéos au sein de la triade</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENCADREMENT -->
+  <section id="encadrement">
+    <h2>Activités d'encadrement et de soutien</h2>
+    <p class="chapo">Quatre dispositifs accompagnent la PSt tout au long du stage.</p>
+    <div class="grille g2">
+      <div class="carte">
+        <h3>Supervision</h3>
+        <p>Au minimum, <strong>une supervision en présence</strong> d'une demi-période d'enseignement ou plus, suivie d'une rencontre en triade.</p>
+      </div>
+      <div class="carte">
+        <h3>Séminaire de soutien et de réflexion</h3>
+        <p style="margin-top:0">Un espace pour briser l'isolement, prendre du recul, partager des stratégies et relier théorie et pratique.</p>
+        <p><span class="tag">C6 : gérer le fonctionnement du groupe-classe</span> <span class="tag">C8 : soutenir le plaisir d'apprendre</span></p>
+        <p style="font-size:.93rem;color:var(--gris);margin-bottom:0">En lien avec les cours 3PDG460, votre cours de didactique, 3TLE221 et 3TLE222.</p>
+      </div>
+      <div class="carte">
+        <h3>Soutien à la rédaction et à la pratique réflexive</h3>
+        <ul class="liste">
+          <li>Clarifier les attentes et les critères</li>
+          <li>Guider le processus (échéancier : plan, ébauche, version finale; questions guides)</li>
+          <li>Offrir des rétroactions précises</li>
+        </ul>
+      </div>
+      <div class="carte">
+        <h3>Rencontres en triade (2 à 3)</h3>
+        <ol style="margin:0;padding-left:20px">
+          <li><strong>Analyse d'une vidéo</strong> sur Zoom, enregistrée (vidéo d'une demi-période à une période, filmée du début à la fin)</li>
+          <li><strong>Supervision en présentiel</strong></li>
+          <li>Une troisième rencontre si l'évaluation certificative n'a pas lieu après la supervision</li>
+        </ol>
+      </div>
+    </div>
+    <div class="note"><strong>Important :</strong> l'enregistrement du séminaire ne peut en aucun cas compenser l'absence d'une PSt à cette rencontre.</div>
+  </section>
+
+  <!-- TRAVAUX -->
+  <section id="travaux">
+    <h2>Travaux à réaliser</h2>
+    <p class="chapo">Tous les travaux sont déposés dans le portfolio, partagé avec la PEA et la PSU. Ils sont évalués selon trois niveaux :</p>
+    <div class="niveaux"><span class="n1">Excellent</span><span class="n2">Satisfaisant</span><span class="n3">À améliorer</span></div>
+
+    <table>
+      <thead><tr><th>Travail</th><th>En bref</th><th>Échéance</th><th>Gabarit</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Collecte de données en vue du bilan</strong></td><td>Tableau alimenté tout au long du stage : routines, portraits, planifications, projet éducatif, personnel administratif, séminaire, vidéo, développement des 9 compétences.</td><td>Disponible au portfolio <strong>dès le 1<sup>er</sup> jour</strong>, puis mis à jour</td><td><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Collecte_donnee_bilan_stage2.docx" target="_blank" rel="noopener">Tableau</a></td></tr>
+        <tr><td><strong>Portrait de deux groupes-classes</strong></td><td>Caractéristiques, dynamique et besoins de chaque groupe, à partir d'observations, d'échanges et de productions d'élèves.</td><td>Semaine 1</td><td><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Portrait_classe_stage2.docx" target="_blank" rel="noopener">Tableau</a></td></tr>
+        <tr><td><strong>Planification à moyen terme</strong></td><td>Ensemble des responsabilités d'enseignement du stage.</td><td>Fin de la semaine 1</td><td><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Planification_moyen_terme_stage2.docx" target="_blank" rel="noopener">Planification globale</a></td></tr>
+        <tr><td><strong>SEA originale filmée</strong></td><td>Une demi-période à une période.</td><td>Semaine 3, 24 h avant la triade</td><td rowspan="2"><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Planification_court_terme_stage2.docx" target="_blank" rel="noopener">Planification d'une séance</a></td></tr>
+        <tr><td><strong>SEA originale de 2 à 3 périodes</strong></td><td>Inclut la période observée lors de la supervision finale.</td><td>Semaine 4, 24 h avant la supervision</td></tr>
+        <tr><td><strong>Analyse de la vidéo</strong></td><td>Regard réflexif sur la gestion de classe (accueil, transitions, clôture), forces, défis et liens avec la théorie.</td><td>Semaine 3, présentée en triade</td><td><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Analyse_video_stage2.docx" target="_blank" rel="noopener">Consignes et tableau</a></td></tr>
+        <tr><td><strong>Bilan du stage 2</strong></td><td>Synthèse critique du développement professionnel pour chacune des 9 compétences, à partir de la collecte de données.</td><td>Semaine 4, présenté oralement en triade</td><td><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/bilan_stage2.docx" target="_blank" rel="noopener">Consignes et tableau</a></td></tr>
+        <tr><td><strong>Grille d'évaluation certificative</strong></td><td>Pas un travail à remettre : document de référence qui décrit les attentes évaluées en fin de stage.</td><td>Remplie en triade, semaine 4</td><td><a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Grille_Eval_Stage_2.docx" target="_blank" rel="noopener">Grille (.docx)</a></td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Attention :</strong> chaque travail doit être réalisé avec soin et rigueur. Des manquements peuvent entraîner un échec aux compétences C2 (langue d'enseignement), C11 (développement professionnel) et C13 (éthique).</div>
+  </section>
+
+  <!-- PLANIFICATION -->
+  <section id="planification">
+    <h2>Planifier une SEA : les trois phases</h2>
+    <p class="chapo">Les éléments clés d'une planification (Monney et al., 2020). Une bonne planification assure la cohérence des interventions et soutient des routines sécurisantes.</p>
+    <div class="phases">
+      <div class="phase">
+        <span class="etape">1. Contextualisation</span>
+        <h3>Préparer le terrain</h3>
+        <ul class="liste">
+          <li>Tenir compte du groupe : niveaux, intérêts, besoins</li>
+          <li>Fixer les objectifs et amorcer la métacognition (avant la tâche)</li>
+          <li>Faire le lien avec les connaissances antérieures</li>
+          <li>Susciter l'engagement (question, défi, accroche)</li>
+          <li>Préparer les ressources</li>
+          <li>Expliquer les modalités, attentes et critères</li>
+        </ul>
+        <p class="fin">Situer les élèves dans un contexte clair, pertinent et motivant.</p>
+      </div>
+      <div class="phase">
+        <span class="etape">2. Réalisation</span>
+        <h3>Enseigner activement</h3>
+        <ul class="liste">
+          <li>Proposer des tâches individuelles, en groupe ou pratiques</li>
+          <li>Favoriser les interactions et les échanges</li>
+          <li>Observer, guider, ajuster; métacognition pendant la tâche</li>
+          <li>Diversifier les méthodes pédagogiques</li>
+          <li>Encourager l'autonomie et l'esprit critique</li>
+        </ul>
+        <p class="fin">Amener les élèves à construire activement leur savoir.</p>
+      </div>
+      <div class="phase">
+        <span class="etape">3. Intégration</span>
+        <h3>Consolider et transférer</h3>
+        <ul class="liste">
+          <li>Vérifier les acquis</li>
+          <li>Transférer vers des contextes nouveaux ou plus complexes</li>
+          <li>Métacognition après la tâche : stratégies, erreurs, ajustements</li>
+          <li>Évaluer (incluant autoévaluation ou évaluation par les pairs)</li>
+          <li>Synthétiser et réinvestir</li>
+        </ul>
+        <p class="fin">Permettre de transférer et d'appliquer les apprentissages.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <h2>Compétences et évaluation</h2>
+    <p class="chapo">Le stage permet de développer neuf compétences du <a href="https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/education/publications-adm/devenir-enseignant/referentiel_competences_professionnelles_profession_enseignante.pdf?1606848024" target="_blank" rel="noopener">Référentiel de compétences professionnelles</a> (MEQ, 2020).</p>
+
+    <div class="comp">
+      <div class="c"><b>C1</b><span>Agir en tant que médiatrice ou médiateur d'éléments de culture</span></div>
+      <div class="c risque"><b>C2</b><span>Maîtriser la langue d'enseignement</span></div>
+      <div class="c"><b>C3</b><span>Planifier les situations d'enseignement et d'apprentissage</span></div>
+      <div class="c"><b>C4</b><span>Mettre en œuvre les situations d'enseignement et d'apprentissage</span></div>
+      <div class="c focus"><b>C6</b><span>Gérer le fonctionnement du groupe-classe <em>(thème du séminaire)</em></span></div>
+      <div class="c focus"><b>C8</b><span>Soutenir le plaisir d'apprendre <em>(thème du séminaire)</em></span></div>
+      <div class="c risque"><b>C11</b><span>S'engager dans un développement professionnel continu et dans la vie de la profession</span></div>
+      <div class="c"><b>C12</b><span>Mobiliser le numérique</span></div>
+      <div class="c risque"><b>C13</b><span>Agir en accord avec les principes éthiques de la profession</span></div>
+    </div>
+    <p style="font-size:.9rem;color:var(--gris)">En orangé : compétences pouvant être échouées si les travaux ne sont pas réalisés avec rigueur. <a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Competences_Vue_d'ensemble.pdf" target="_blank" rel="noopener">Attentes de développement pour les quatre stages</a></p>
+
+    <div class="grille g2" style="margin-top:22px">
+      <div class="carte">
+        <h3>Évaluation formative</h3>
+        <p style="margin:0">Tout au long du stage, la PEA et la PSU offrent des appréciations et rétroactions verbales et écrites, et la PSt s'autoévalue. Objectif : prendre conscience de sa progression, identifier ses forces et ses défis, et se fixer des pistes d'amélioration à court et à long terme.</p>
+      </div>
+      <div class="carte accent">
+        <h3>Évaluation certificative</h3>
+        <ul class="liste">
+          <li>Réalisée en triade, sous la responsabilité de la PSU</li>
+          <li>La PEA et la PSU indiquent chacune, par écrit, si les attentes sont satisfaites ou non</li>
+          <li>La PSt <strong>présente oralement son bilan de stage</strong>, suivi d'une discussion</li>
+          <li>La PSU rédige la version finale à partir de son évaluation, de celle de la PEA, du bilan et des travaux</li>
+          <li>La grille signée par la triade est déposée au secrétariat : <a href="mailto:sm39@uqac.ca">sm39@uqac.ca</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grille-eval" id="grille">
+      <div class="ico" aria-hidden="true">📋</div>
+      <div class="txt">
+        <h3>Grille d'évaluation certificative du stage 2</h3>
+        <p>C'est l'outil utilisé par la PEA et la PSU pour l'évaluation finale. Il est conseillé à la PSt de la consulter dès le début du stage pour connaître les attentes. Une fois remplie et signée par la triade, la grille est déposée en version électronique à <a href="mailto:sm39@uqac.ca">sm39@uqac.ca</a>.</p>
+      </div>
+      <a class="btn" href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Grille_Eval_Stage_2.docx" target="_blank" rel="noopener">Télécharger la grille (.docx)</a>
+    </div>
+  </section>
+
+  <!-- RÈGLES -->
+  <section id="regles">
+    <h2>Règles essentielles à retenir</h2>
+    <p class="chapo">Les points qui font le plus souvent l'objet de questions.</p>
+
+    <details open><summary>Le délai de 24 heures</summary><div class="corps">Toute planification (séance filmée ou séance supervisée) est déposée au portfolio <strong>au moins 24 h avant</strong> l'observation ou la rencontre en triade. Le lien Panopto de la vidéo suit la même règle.</div></details>
+    <details><summary>Confidentialité des vidéos</summary><div class="corps">
+      <ul class="liste">
+        <li>Consentement signé des parents obtenu dès la semaine 1 pour le groupe filmé</li>
+        <li>Filmer les élèves de dos, ou ne filmer que la PSt</li>
+        <li>Les vidéos (qu'elles soient faites par la PSt, la PEA ou la PSU) ne sont partagées qu'avec les membres de la triade</li>
+        <li>Une fois déposée sur Panopto, la vidéo est supprimée de l'infonuagique personnelle au plus tard à la fin du stage (PSt pour sa SEA filmée, PSU pour le séminaire et la triade)</li>
+      </ul></div></details>
+    <details><summary>Absences</summary><div class="corps">Toute absence est signalée à la PEA, à la PSU et au bureau de la formation pratique en enseignement. Les journées manquées sont rattrapées selon les modalités convenues.</div></details>
+    <details><summary>Le portfolio</summary><div class="corps">Il doit être correctement partagé avec la PEA et la PSU, et <strong>publié</strong> afin que les modifications soient visibles. Le tableau de collecte de données doit s'y trouver dès le premier jour.</div></details>
+    <details><summary>Responsabilité des élèves</summary><div class="corps">La PEA conserve en tout temps l'entière responsabilité professionnelle et légale de ses élèves, même lorsque la PSt enseigne.</div></details>
+    <details><summary>En cas de difficulté</summary><div class="corps">La PSt avise rapidement la PSU, la PEA et le bureau de la formation pratique. Lorsque des difficultés sont observées, la PEA informe la PSU, qui met en place un plan d'intervention.</div></details>
+    <details><summary>Utilisation de l'intelligence artificielle dans le guide</summary><div class="corps">Le guide de stage précise que l'IA a été utilisée pour la correction linguistique, la vérification de la cohérence et la reformulation de certains passages.</div></details>
+  </section>
+
+  <!-- RESSOURCES -->
+  <section id="ressources">
+    <h2>Ressources et contacts</h2>
+    <div class="grille g3" style="margin-top:20px">
+      <div class="carte docs">
+        <h3>Documents du stage</h3>
+        <a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Vue_d'ensemble_4_Stages.pdf" target="_blank" rel="noopener">Vue d'ensemble des quatre stages</a>
+        <a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Competences_Vue_d'ensemble.pdf" target="_blank" rel="noopener">Attentes par compétence</a>
+        <a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Balises_surnumeraire_Stage2.pdf" target="_blank" rel="noopener">Balises pour le séminaire (PSU)</a>
+        <a href="https://www.uqac.ca/stagesdse-docs/bes/Documents_stage_2/Grille_Eval_Stage_2.docx" target="_blank" rel="noopener">Grille d'évaluation certificative</a>
+        <a href="https://www.uqac.ca/stages-docs/formulaires/formulaire-plan-intervention.pdf" target="_blank" rel="noopener">Formulaire de plan d'intervention</a>
+      </div>
+      <div class="carte docs">
+        <h3>Références de la profession</h3>
+        <a href="https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/education/publications-adm/devenir-enseignant/referentiel_competences_professionnelles_profession_enseignante.pdf?1606848024" target="_blank" rel="noopener">Référentiel de compétences (MEQ, 2020)</a>
+        <a href="https://www.quebec.ca/education/prescolaire-primaire-et-secondaire/programmes-formations-evaluation/programme-formation-ecole-quebecoise/secondaire" target="_blank" rel="noopener">PFÉQ, enseignement secondaire</a>
+        <a href="https://www.uqac.ca/stages/loi-visant-a-assurer-la-protection-des-stagiaires/" target="_blank" rel="noopener">Loi sur la protection des stagiaires</a>
+        <a href="https://www.uqac.ca/stages-ens/roles/" target="_blank" rel="noopener">Rôles de la PSt (UQAC)</a>
+        <a href="https://www.uqac.ca/stages-ens/roles-et-responsabilites-de-lenseignant-associe/" target="_blank" rel="noopener">Rôles de la PEA (UQAC)</a>
+        <a href="https://www.uqac.ca/stages-ens/roles-et-responsabilites-du-superviseur-2/" target="_blank" rel="noopener">Rôles de la PSU (UQAC)</a>
+      </div>
+      <div class="carte">
+        <h3>Secrétariat du programme</h3>
+        <p style="margin-top:0">Université du Québec à Chicoutimi<br>Local H4-1410<br>
+        <a href="mailto:sm_enseignement-secondaire@uqac.ca">sm_enseignement-secondaire@uqac.ca</a><br>
+        418 545-5011, poste 2246</p>
+        <p style="margin-bottom:0;font-size:.93rem">Dépôt des évaluations certificatives : <a href="mailto:sm39@uqac.ca">sm39@uqac.ca</a></p>
+      </div>
+    </div>
+
+    <div class="carte" style="margin-top:16px">
+      <h3>Acronymes</h3>
+      <dl class="acro">
+        <dt>PSt</dt><dd>Personne stagiaire</dd>
+        <dt>PEA</dt><dd>Personne enseignante associée</dd>
+        <dt>PSU</dt><dd>Personne superviseure universitaire</dd>
+        <dt>SEA</dt><dd>Situation d'enseignement et d'apprentissage</dd>
+        <dt>PFÉQ</dt><dd>Programme de formation de l'école québécoise</dd>
+        <dt>PEI</dt><dd>Programme d'éducation internationale</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Présentation tirée du <em>Guide du stage 2 (3ESR121), Immersion dans les milieux de pratique</em>, préparé par Emmanuelle Aurousseau et Joëlle Duval, sous la direction de Catherine Duquette et de Sandra Coulombe. Version mise à l'essai, automne 2026. En cas de divergence, le guide officiel prévaut.
+  </div>
+</footer>
+
+<script>
+  // Onglets des rôles
+  const tabs = document.querySelectorAll('[role="tab"]');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => { x.setAttribute('aria-selected','false'); document.getElementById(x.getAttribute('aria-controls')).classList.remove('visible'); });
+    t.setAttribute('aria-selected','true');
+    document.getElementById(t.getAttribute('aria-controls')).classList.add('visible');
+  }));
+  // Lien actif dans le menu
+  const liens = document.querySelectorAll('nav.menu a');
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) liens.forEach(a => a.classList.toggle('actif', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('main section').forEach(s => obs.observe(s));
+  // Impression : ouvrir tous les accordéons
+  window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach(d => d.open = true));
+</script>
+</body>
+</html>
